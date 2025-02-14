@@ -1,9 +1,9 @@
 import time
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-import openai
 from flask_socketio import SocketIO
 import os
+
 
 start_time = time.time()
 # Initialize Flask app
@@ -63,8 +63,10 @@ def ai_tutor():
 
     prompt = generate_prompt(subject, category, query)
     try:
+        import openai
         openai.api_base = "https://openrouter.ai/api/v1"
         openai.api_key = os.getenv("OPENAI_API_KEY")
+        print(f"openai.api_key: {openai.api_key}")
         response = openai.ChatCompletion.create(
             model="mistralai/mistral-7b-instruct",  # Use free-tier model
             messages=[{"role": "system", "content": prompt}],
@@ -72,14 +74,11 @@ def ai_tutor():
             temperature=0
         )
         answer = response['choices'][0]['message']['content']
-        elapsed_time = time.time() - start_time
-        print(f"OpenRouter call took {elapsed_time} seconds")
-        print('answer', answer)
         return jsonify(
             {"result": answer, "explanation": f"This explanation follows the Kenyan CBC syllabus for {subject}."}
         )
     except Exception as e:
-        print("Error:", str(e))
+        print("Error this is the error:", str(e))
         return jsonify({"error": f"OpenAI Error: {str(e)}"}), 500
 
 
