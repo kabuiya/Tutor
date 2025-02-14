@@ -4,8 +4,6 @@ jobs:
   test:
     docker:
       - image: python:3.10  # Use Python 3.9 for your tests
-    environment:
-      OPENAI_API_KEY: $OPENAI_API_KEY
     executor:
     resource_class: large
     steps:
@@ -16,11 +14,12 @@ jobs:
             python -m venv venv
             source venv/bin/activate
             pip install -r requirements.txt
-            pip install pytest pytest-cov
+            pip install pytest pytest-cov coveralls
       - run:
           name: Set environment variable and Run tests with coverage
           command: |
             export OPENAI_API_KEY="$OPENAI_API_KEY"  
+            source venv/bin/activate
             python main.py & 
             source venv/bin/activate
             pytest --cov=. test_tutor.py
