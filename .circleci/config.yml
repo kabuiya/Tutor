@@ -21,7 +21,6 @@ jobs:
           name: Run tests with coverage
           command: |
             source venv/bin/activate
-            export OPENAI_API_KEY=$OPENAI_API_KEY
             pytest --cov=. test_tutor.py
             coverage report -m
       - run:
