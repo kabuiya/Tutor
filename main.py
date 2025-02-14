@@ -3,18 +3,13 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import openai
 from flask_socketio import SocketIO
-
+import os
 
 start_time = time.time()
 # Initialize Flask app
 app = Flask(__name__)
 CORS(app, origins=["http://localhost:3000"])  # Enable CORS for frontend requests
 socketio = SocketIO(app, cors_allowed_origins="*")  # Enable WebSockets (optional)
-
-# OpenAI API Key
-openai.api_base = "https://openrouter.ai/api/v1"
-import os
-openai.api_key = os.getenv("OPENAI_API_KEY")
 
 # Subject categories
 SUBJECTS_JSS = ["Math", "Science", "Social Studies"]
@@ -68,6 +63,8 @@ def ai_tutor():
 
     prompt = generate_prompt(subject, category, query)
     try:
+        openai.api_base = "https://openrouter.ai/api/v1"
+        openai.api_key = os.getenv("OPENAI_API_KEY")
         response = openai.ChatCompletion.create(
             model="mistralai/mistral-7b-instruct",  # Use free-tier model
             messages=[{"role": "system", "content": prompt}],
