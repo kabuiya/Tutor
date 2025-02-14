@@ -1,6 +1,7 @@
 
 import json
 import pytest
+import os
 from main import app  # Import the Flask app from your main file
 
 
@@ -14,6 +15,9 @@ def client():
 
 def test_ai_tutor_valid_request(client):
     """Test AI tutor with a valid request."""
+    api_key = os.environ.get("OPENAI_API_KEY")  # Get API key from environment variable
+    if api_key is None:
+        raise ValueError("OPENAI_API_KEY environment variable not set")
     payload = {
         "category": "JSS",
         "subject": "Math",
