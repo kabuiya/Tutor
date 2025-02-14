@@ -1,4 +1,4 @@
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kabuiya/tutor/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kabuiya/tutor/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/kabuiya/Tutor/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/kabuiya/Tutor/tree/main)
 [![Coverage Status](https://coveralls.io/repos/github/kabuiya/tutor/badge.svg?branch=circleci-project-setup)](https://coveralls.io/github/kabuiya/tutor?branch=circleci-project-setup)
 # `AI Tutor - CBC Curriculum Assistant`
 
